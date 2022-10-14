@@ -133,9 +133,18 @@ public:
    //
    // Construct
    //
-   Node()                : pNext(nullptr), pPrev(nullptr), data() {};
-   Node(const T &  data) : pNext(nullptr), pPrev(nullptr), data(data) {};
-   Node(      T && data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
+   Node()  
+   {
+      pNext = pPrev = this;
+   }
+   Node(const T &  data)  
+   {
+      pNext = pPrev = this;
+   }
+   Node(      T && data)  
+   {
+      pNext = pPrev = this;
+   }
 
    //
    // Data
@@ -161,81 +170,52 @@ public:
    // constructors, destructors, and assignment operator
    iterator() 
    {
-      p = nullptr;
+      p = new typename list <T> ::Node;
    }
    iterator(Node * p) 
    {
-      this->p = p;
+      p = new typename list <T> ::Node;
    }
    iterator(const iterator  & rhs) 
    {
-      this->p = rhs.p;
+      p = new typename list <T> ::Node;
    }
    iterator & operator = (const iterator & rhs)
    {
-      this->p = rhs.p;
       return *this;
    }
    
    // equals, not equals operator
-   bool operator == (const iterator & rhs) const
-   {
-      if (this->p == rhs.p)
-      {
-         return true;
-      }
-      else
-      {
-         return false;
-      }
-   }
-   bool operator != (const iterator & rhs) const
-   {
-      if (!(*this == rhs))
-      {
-         return true;
-      }
-      else
-      {
-         return false;
-      }
-   }
+   bool operator == (const iterator & rhs) const { return true; }
+   bool operator != (const iterator & rhs) const { return true; }
 
    // dereference operator, fetch a node
    T & operator * ()
    {
-      return p->data;
+      return *(new T);
    }
 
    // postfix increment
    iterator operator ++ (int postfix)
    {
-      iterator temp;
-      temp = *this;
-      ++(*this);
-      return temp;
+      return *this;
    }
 
    // prefix increment
    iterator & operator ++ ()
    {
-      p = p->pNext;
       return *this;
    }
    
    // postfix decrement
    iterator operator -- (int postfix)
    {
-      iterator temp;
-      temp = *this;
-      --(*this);
-      return temp;
+      return *this;
    }
 
    // prefix decrement
    iterator & operator -- ()
    {
-      p = p->pPrev;
       return *this;
    } 
 
@@ -387,13 +367,35 @@ void list <T> :: clear()
 template <typename T>
 void list <T> :: push_back(const T & data)
 {
-
+    Node pNew = new node(T);
+    pNew.pPrev = pTail 
+        if (pTail)
+        {
+            pTail.PNext = pNew;
+        }
+        else
+        {
+            pHead = pNew;
+        }
+    pTail = pNew;
+    numElements += 1;
 }
 
 template <typename T>
 void list <T> ::push_back(T && data)
 {
-
+    Node pNew = new node(T);
+    pNew.pPrev = pTail
+        if (pTail)
+        {
+            pTail.PNext = pNew;
+        }
+        else
+        {
+            pHead = pNew;
+        }
+    pTail = pNew;
+    numElements += 1;
 }
 
 /*********************************************
@@ -406,13 +408,33 @@ void list <T> ::push_back(T && data)
 template <typename T>
 void list <T> :: push_front(const T & data)
 {
-
+   Node pNew = new node(T);
+   pNew.pNext = pHead
+   if (pHead)
+   {
+      pHead.pPrev = pNew;
+   }else
+   {
+      pTail = pNew;
+   }
+   pHead = pNew;
+   numElements += 1;
 }
 
 template <typename T>
 void list <T> ::push_front(T && data)
 {
-
+   auto pNew = new node(T);
+   pNew.pNext = pHead
+   if (pHead)
+   {
+      pHead.pPrev = pNew;
+   }else
+   {
+      pTail = pNew;
+   }
+   pHead = pNew;
+   numElements += 1;
 }
 
 
@@ -452,7 +474,14 @@ void list <T> ::pop_front()
 template <typename T>
 T & list <T> :: front()
 {
-   return *(new T);
+   if (T not empty())
+   {
+      return pHead.data;
+   }
+   else 
+   {
+      return nullptr;
+   }
 }
 
 /*********************************************
@@ -465,7 +494,14 @@ T & list <T> :: front()
 template <typename T>
 T & list <T> :: back()
 {
-   return *(new T);
+   if (T not empty())
+   {
+      return pTail.data;
+   }
+   else 
+   {
+      return nullptr;
+   }
 }
 
 /******************************************

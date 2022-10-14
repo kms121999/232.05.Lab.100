@@ -133,18 +133,9 @@ public:
    //
    // Construct
    //
-   Node()  
-   {
-      pNext = pPrev = this;
-   }
-   Node(const T &  data)  
-   {
-      pNext = pPrev = this;
-   }
-   Node(      T && data)  
-   {
-      pNext = pPrev = this;
-   }
+   Node()                : pNext(nullptr), pPrev(nullptr), data() {};
+   Node(const T &  data) : pNext(nullptr), pPrev(nullptr), data(data) {};
+   Node(      T && data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
 
    //
    // Data
@@ -170,52 +161,81 @@ public:
    // constructors, destructors, and assignment operator
    iterator() 
    {
-      p = new typename list <T> ::Node;
+      p = nullptr;
    }
    iterator(Node * p) 
    {
-      p = new typename list <T> ::Node;
+      this->p = p;
    }
    iterator(const iterator  & rhs) 
    {
-      p = new typename list <T> ::Node;
+      this->p = rhs.p;
    }
    iterator & operator = (const iterator & rhs)
    {
+      this->p = rhs.p;
       return *this;
    }
    
    // equals, not equals operator
-   bool operator == (const iterator & rhs) const { return true; }
-   bool operator != (const iterator & rhs) const { return true; }
+   bool operator == (const iterator & rhs) const
+   {
+      if (this->p == rhs.p)
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+   bool operator != (const iterator & rhs) const
+   {
+      if (!(*this == rhs))
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
 
    // dereference operator, fetch a node
    T & operator * ()
    {
-      return *(new T);
+      return p->data;
    }
 
    // postfix increment
    iterator operator ++ (int postfix)
    {
-      return *this;
+      iterator temp;
+      temp = *this;
+      ++(*this);
+      return temp;
    }
 
    // prefix increment
    iterator & operator ++ ()
    {
+      p = p->pNext;
       return *this;
    }
    
    // postfix decrement
    iterator operator -- (int postfix)
    {
-      return *this;
+      iterator temp;
+      temp = *this;
+      --(*this);
+      return temp;
    }
 
    // prefix decrement
    iterator & operator -- ()
    {
+      p = p->pPrev;
       return *this;
    } 
 

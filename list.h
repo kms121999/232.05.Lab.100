@@ -56,6 +56,13 @@ public:
   ~list() 
    {
    }
+  pNew = new list<T>::Node();
+
+  pNew = new list<T>::Node(t);
+
+  pNew = alloc.allocate(1);
+  new (void*)pNew T(t);
+
 
    // 
    // Assign

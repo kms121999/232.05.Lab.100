@@ -146,11 +146,6 @@ public:
    Node()                : pNext(nullptr), pPrev(nullptr), data() {};
    Node(const T &  data) : pNext(nullptr), pPrev(nullptr), data(data) {};
    Node(      T && data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
-   list<float> l1;
-   list<int> l2(4);
-   list<char> l3(4, 'a');
-   list<char> l4(l3);
-   list<char> l5(move(l3));
    list<int> l6{ 0, 2, 4, 6 };
 
    //
@@ -272,6 +267,7 @@ private:
 template <typename T>
 list <T> ::list(size_t num, const T & t) 
 {
+   list<char> l3(4, 'a');
    numElements = 99;
    pHead = pTail = new list <T> ::Node();
 }
@@ -326,6 +322,7 @@ list <T> ::list()
 template <typename T>
 list <T> ::list(list& rhs) 
 {
+   list<char> l4(l3);
    numElements = 99;
    pHead = pTail = new list <T> ::Node();
 }
@@ -337,6 +334,7 @@ list <T> ::list(list& rhs)
 template <typename T>
 list <T> ::list(list <T>&& rhs)
 {
+   list<char> l5(move(l3));
    numElements = 99;
    pHead = pTail = new list <T> ::Node();
 }
@@ -377,6 +375,18 @@ list <T> & list <T> :: operator = (list <T> & rhs)
 template <typename T>
 list <T>& list <T> :: operator = (const std::initializer_list<T>& rhs)
 {
+   rhs->pHead = tempHead;
+   pHead = rhs->pHead;
+   tempHead = pHead;
+
+   rhs->pTail = tempTail;
+   pTail->rhs.pTail;
+   tempTail = pTail;
+
+   rhs->numElements = tempElements;
+   numElements = rhs->numElements;
+   tempElements = numElements;
+
    return *this;
 }
 

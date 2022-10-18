@@ -44,7 +44,9 @@ public:
    // 
    // Construct
    //
-
+   Node() : pNext(nullptr), pPrev(nullptr), data() {};
+   Node(const T& data) : pNext(nullptr), pPrev(nullptr), data(data) {};
+   Node(T&& data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
    list();
    list(list <T> & rhs);
    list(list <T>&& rhs);
@@ -115,8 +117,8 @@ public:
    // Status
    //
 
-   bool empty()  const { return true; }
-   size_t size() const { return 99;   }
+   bool empty()  const { return pHead = NULL; }
+   size_t size() const { return numElements; }
 
 
 private:

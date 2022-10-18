@@ -63,6 +63,9 @@ public:
   pNew = alloc.allocate(1);
   new (void*)pNew T(t);
 
+  // Copy Constructor
+  list.copy-constructor(rhs)
+  pHead 
 
    // 
    // Assign

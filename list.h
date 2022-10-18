@@ -146,6 +146,12 @@ public:
    Node()                : pNext(nullptr), pPrev(nullptr), data() {};
    Node(const T &  data) : pNext(nullptr), pPrev(nullptr), data(data) {};
    Node(      T && data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
+   list<float> l1;
+   list<int> l2(4);
+   list<char> l3(4, 'a');
+   list<char> l4(l3);
+   list<char> l5(move(l3));
+   list<int> l6{ 0, 2, 4, 6 };
 
    //
    // Data

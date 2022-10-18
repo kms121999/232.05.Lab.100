@@ -349,6 +349,8 @@ list <T> ::list(list <T>&& rhs)
 template <typename T>
 list <T>& list <T> :: operator = (list <T> && rhs)
 {
+   clear();
+   swap(rhs);
    return *this;
 }
 
@@ -375,17 +377,40 @@ list <T> & list <T> :: operator = (list <T> & rhs)
 template <typename T>
 list <T>& list <T> :: operator = (const std::initializer_list<T>& rhs)
 {
-   rhs->pHead = tempHead;
-   pHead = rhs->pHead;
-   tempHead = pHead;
-
-   rhs->pTail = tempTail;
-   pTail->rhs.pTail;
-   tempTail = pTail;
-
-   rhs->numElements = tempElements;
-   numElements = rhs->numElements;
-   tempElements = numElements;
+    itRHS = rhs->begin;
+    itLHS = begin();
+    while (itRHS != rhs->end() && itLHS != end())
+    {
+        *itLHS = *itRHS;
+        ++itRHS;
+        ++itLHS;
+    }
+    if (itRHS != rhs->end());
+    {
+        while (itRHS != rhs->end())
+        {
+            push_back(*itRHS);
+            ++itRHS;
+        }
+    }
+    elseif(rhs.empty())
+    {
+        clear();
+    }
+    elif(itLHS != end())
+    {
+        p = itLHS->p;
+        pTail = p->pPrev;
+        pNext = p->pNext;
+        while (p != NULL)
+        {
+            pNext = p->pNext;
+            delete p;
+            p = pNext;
+            --numElements;
+            pTail->pNext = NULL;
+        }
+    }
 
    return *this;
 }

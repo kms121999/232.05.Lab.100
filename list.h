@@ -15,7 +15,7 @@
  *        List         : A class that represents a List
  *        ListIterator : An iterator through List
  * Author
- *    <your names here>
+ *    <Keaton Smith 4 hours, Philip Marvin 6 hours, Alex Jacob 6 hours>
  ************************************************************************/
 
 #pragma once

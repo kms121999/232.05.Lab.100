@@ -364,19 +364,6 @@ list <T>& list <T> :: operator = (list <T> && rhs)
 template <typename T>
 list <T> & list <T> :: operator = (list <T> & rhs)
 {
-   return *this;
-}
-
-/**********************************************
- * LIST :: assignment operator
- * Copy one list onto another
- *     INPUT  : a list to be copied
- *     OUTPUT :
- *     COST   : O(n) with respect to the number of nodes
- *********************************************/
-template <typename T>
-list <T>& list <T> :: operator = (const std::initializer_list<T>& rhs)
-{
     itRHS = rhs->begin;
     itLHS = begin();
     while (itRHS != rhs->end() && itLHS != end())
@@ -411,7 +398,19 @@ list <T>& list <T> :: operator = (const std::initializer_list<T>& rhs)
             pTail->pNext = NULL;
         }
     }
+    return *this;
+}
 
+/**********************************************
+ * LIST :: assignment operator
+ * Copy one list onto another
+ *     INPUT  : a list to be copied
+ *     OUTPUT :
+ *     COST   : O(n) with respect to the number of nodes
+ *********************************************/
+template <typename T>
+list <T>& list <T> :: operator = (const std::initializer_list<T>& rhs)
+{
    return *this;
 }
 

@@ -15,7 +15,7 @@
  *        List         : A class that represents a List
  *        ListIterator : An iterator through List
  * Author
- *    <your names here>
+ *    <Keaton Smith 4 hours, Philip Marvin 6 hours, Alex Jacob 6 hours>
  ************************************************************************/
 
 #pragma once
@@ -44,7 +44,9 @@ public:
    // 
    // Construct
    //
-
+   Node() : pNext(nullptr), pPrev(nullptr), data() {};
+   Node(const T& data) : pNext(nullptr), pPrev(nullptr), data(data) {};
+   Node(T&& data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
    list();
    list(list <T> & rhs);
    list(list <T>&& rhs);
@@ -56,6 +58,16 @@ public:
   ~list() 
    {
    }
+  pNew = new list<T>::Node();
+
+  pNew = new list<T>::Node(t);
+
+  pNew = alloc.allocate(1);
+  new (void*)pNew T(t);
+
+  // Copy Constructor
+  list.copy-constructor(rhs)
+  pHead 
 
    // 
    // Assign
@@ -105,8 +117,8 @@ public:
    // Status
    //
 
-   bool empty()  const { return true; }
-   size_t size() const { return 99;   }
+   bool empty()  const { return pHead = NULL; }
+   size_t size() const { return numElements; }
 
 
 private:
@@ -136,6 +148,7 @@ public:
    Node()                : pNext(nullptr), pPrev(nullptr), data() {};
    Node(const T &  data) : pNext(nullptr), pPrev(nullptr), data(data) {};
    Node(      T && data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
+   list<int> l6{ 0, 2, 4, 6 };
 
    //
    // Data
@@ -256,6 +269,7 @@ private:
 template <typename T>
 list <T> ::list(size_t num, const T & t) 
 {
+   list<char> l3(4, 'a');
    numElements = 99;
    pHead = pTail = new list <T> ::Node();
 }
@@ -310,6 +324,7 @@ list <T> ::list()
 template <typename T>
 list <T> ::list(list& rhs) 
 {
+   list<char> l4(l3);
    numElements = 99;
    pHead = pTail = new list <T> ::Node();
 }
@@ -321,6 +336,7 @@ list <T> ::list(list& rhs)
 template <typename T>
 list <T> ::list(list <T>&& rhs)
 {
+   list<char> l5(move(l3));
    numElements = 99;
    pHead = pTail = new list <T> ::Node();
 }
@@ -335,6 +351,8 @@ list <T> ::list(list <T>&& rhs)
 template <typename T>
 list <T>& list <T> :: operator = (list <T> && rhs)
 {
+   clear();
+   swap(rhs);
    return *this;
 }
 
@@ -348,7 +366,41 @@ list <T>& list <T> :: operator = (list <T> && rhs)
 template <typename T>
 list <T> & list <T> :: operator = (list <T> & rhs)
 {
-   return *this;
+    itRHS = rhs->begin;
+    itLHS = begin();
+    while (itRHS != rhs->end() && itLHS != end())
+    {
+        *itLHS = *itRHS;
+        ++itRHS;
+        ++itLHS;
+    }
+    if (itRHS != rhs->end());
+    {
+        while (itRHS != rhs->end())
+        {
+            push_back(*itRHS);
+            ++itRHS;
+        }
+    }
+    elseif(rhs.empty())
+    {
+        clear();
+    }
+    elif(itLHS != end())
+    {
+        p = itLHS->p;
+        pTail = p->pPrev;
+        pNext = p->pNext;
+        while (p != NULL)
+        {
+            pNext = p->pNext;
+            delete p;
+            p = pNext;
+            --numElements;
+            pTail->pNext = NULL;
+        }
+    }
+    return *this;
 }
 
 /**********************************************

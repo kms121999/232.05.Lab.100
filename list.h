@@ -44,9 +44,6 @@ public:
    // 
    // Construct
    //
-   Node() : pNext(nullptr), pPrev(nullptr), data() {};
-   Node(const T& data) : pNext(nullptr), pPrev(nullptr), data(data) {};
-   Node(T&& data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
    list();
    list(list <T> & rhs);
    list(list <T>&& rhs);
@@ -58,16 +55,6 @@ public:
   ~list() 
    {
    }
-  pNew = new list<T>::Node();
-
-  pNew = new list<T>::Node(t);
-
-  pNew = alloc.allocate(1);
-  new (void*)pNew T(t);
-
-  // Copy Constructor
-  list.copy-constructor(rhs)
-  pHead 
 
    // 
    // Assign
@@ -117,7 +104,7 @@ public:
    // Status
    //
 
-   bool empty()  const { return pHead = NULL; }
+   bool empty()  const { return (pHead == nullptr); }
    size_t size() const { return numElements; }
 
 
@@ -148,7 +135,6 @@ public:
    Node()                : pNext(nullptr), pPrev(nullptr), data() {};
    Node(const T &  data) : pNext(nullptr), pPrev(nullptr), data(data) {};
    Node(      T && data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
-   list<int> l6{ 0, 2, 4, 6 };
 
    //
    // Data
@@ -269,7 +255,6 @@ private:
 template <typename T>
 list <T> ::list(size_t num, const T & t) 
 {
-   list<char> l3(4, 'a');
    numElements = 99;
    pHead = pTail = new list <T> ::Node();
 }
@@ -324,7 +309,6 @@ list <T> ::list()
 template <typename T>
 list <T> ::list(list& rhs) 
 {
-   list<char> l4(l3);
    numElements = 99;
    pHead = pTail = new list <T> ::Node();
 }
@@ -336,7 +320,6 @@ list <T> ::list(list& rhs)
 template <typename T>
 list <T> ::list(list <T>&& rhs)
 {
-   list<char> l5(move(l3));
    numElements = 99;
    pHead = pTail = new list <T> ::Node();
 }
@@ -366,15 +349,15 @@ list <T>& list <T> :: operator = (list <T> && rhs)
 template <typename T>
 list <T> & list <T> :: operator = (list <T> & rhs)
 {
-    itRHS = rhs->begin;
-    itLHS = begin();
+    /*iterator itRHS = rhs->begin;
+    iterator itLHS = begin();
     while (itRHS != rhs->end() && itLHS != end())
     {
         *itLHS = *itRHS;
         ++itRHS;
         ++itLHS;
     }
-    if (itRHS != rhs->end());
+    if (itRHS != rhs->end())
     {
         while (itRHS != rhs->end())
         {
@@ -382,11 +365,11 @@ list <T> & list <T> :: operator = (list <T> & rhs)
             ++itRHS;
         }
     }
-    elseif(rhs.empty())
+    else if (rhs.empty())
     {
         clear();
     }
-    elif(itLHS != end())
+    else if (itLHS != end())
     {
         p = itLHS->p;
         pTail = p->pPrev;
@@ -399,7 +382,7 @@ list <T> & list <T> :: operator = (list <T> & rhs)
             --numElements;
             pTail->pNext = NULL;
         }
-    }
+    }*/
     return *this;
 }
 

@@ -258,6 +258,8 @@ template <typename T>
 list <T> ::list(size_t num, const T & t) 
 {
    numElements = num;
+   pHead = pTail = nullptr;
+
    if (num)
    {
        pHead = new Node(t);
@@ -273,7 +275,6 @@ list <T> ::list(size_t num, const T & t)
        pNew->pNext = nullptr;
        pTail = pNew;
    }
-   numElements = num;
 }
 
 /*****************************************
@@ -285,6 +286,7 @@ template <class Iterator>
 list <T> ::list(Iterator first, Iterator last)
 {
    numElements = 0;
+   pHead = pTail = nullptr;
 
    if (first)
    {
@@ -314,9 +316,30 @@ list <T> ::list(Iterator first, Iterator last)
 template <typename T>
 list <T> ::list(const std::initializer_list<T>& il)
 {
-    pHead = NULL;
-    pTail = NULL;
-    numElements = 0;
+   numElements = il.size();
+   pHead = pTail = nullptr;
+
+   auto first = il.begin();
+
+   if (first)
+   {
+      pHead = new Node(*first);
+      Node* pNew = pHead;
+      Node* pPrevious = pHead;
+      ++numElements;
+      ++first;
+
+      for (auto it = first; it != il.end(); ++it)
+      {
+         pNew = new Node(*it);
+         pPrevious->pNext = pNew;
+         pNew->pPrev = pPrevious;
+         pPrevious = pNew;
+         ++numElements;
+      }
+
+      pTail = pNew;
+   }
 }
 
 /*****************************************
@@ -326,7 +349,24 @@ list <T> ::list(const std::initializer_list<T>& il)
 template <typename T>
 list <T> ::list(size_t num)
 {
-   
+    numElements = num;
+    pHead = pTail = nullptr;
+
+    if (num)
+    {
+        pHead = new Node();
+        Node* pPrevious = pHead;
+        Node* pNew = pHead;
+        pHead->pPrev = nullptr;
+        for (size_t i = 1; i < num; i++)
+        {
+            pNew = new Node();
+            pNew->pPrev = pPrevious;
+            pNew->pPrev->pNext = pNew;
+        }
+        pNew->pNext = nullptr;
+        pTail = pNew;
+    }
 }
 
 /*****************************************

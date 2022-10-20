@@ -263,9 +263,17 @@ list <T> ::list(size_t num, const T & t)
        pHead = new Node(t);
        Node* pPrevious = pHead;
        Node* pNew = pHead;
-       pHead->pPrev = NULL;
-       for(i=1;)
+       pHead->pPrev = nullptr;
+       for (i = 1; i < num)
+       {
+           pNew = new Node(t);
+           pNew->pPrev = pPrevious;
+           pNew->pPrev->pNext = pNew;
+       }
+       pNew->pNext = nullptr;
+       pTail = pNew;
    }
+   numElements = num;
 }
 
 /*****************************************
@@ -287,8 +295,11 @@ list <T> ::list(Iterator first, Iterator last)
 template <typename T>
 list <T> ::list(const std::initializer_list<T>& il)
 {
-   numElements = 99;
-   pHead = pTail = new list <T> ::Node();
+    pHead = NULL;
+    pTail = NULL;
+    numElements = 0;
+
+    this = rhs;
 }
 
 /*****************************************
@@ -298,8 +309,7 @@ list <T> ::list(const std::initializer_list<T>& il)
 template <typename T>
 list <T> ::list(size_t num)
 {
-   numElements = 99;
-   pHead = pTail = new list <T> ::Node();
+   
 }
 
 /*****************************************
@@ -308,8 +318,9 @@ list <T> ::list(size_t num)
 template <typename T>
 list <T> ::list() 
 {
-   numElements = 99;
-   pHead = pTail = new list <T> ::Node();
+    pHead = NULL;
+    pTail = NULL;
+    numElements = 0;
 }
 
 /*****************************************
@@ -318,8 +329,14 @@ list <T> ::list()
 template <typename T>
 list <T> ::list(list& rhs) 
 {
-   numElements = 99;
-   pHead = pTail = new list <T> ::Node();
+    pHead = NULL;
+    pTail = NULL;
+    numElements = 0;
+
+    for (it = rhs.begin(); rhs.end())
+    {
+        push_back(*it);
+    }
 }
 
 /*****************************************
@@ -329,8 +346,10 @@ list <T> ::list(list& rhs)
 template <typename T>
 list <T> ::list(list <T>&& rhs)
 {
-   numElements = 99;
-   pHead = pTail = new list <T> ::Node();
+    this->pHead = nullptr;
+    this->pTail = nullptr;
+    this->numElements = 0;
+    swap(*this, rhs);
 }
 
 /**********************************************

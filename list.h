@@ -268,8 +268,27 @@ template <typename T>
 template <class Iterator>
 list <T> ::list(Iterator first, Iterator last)
 {
-   numElements = 99;
-   pHead = pTail = new list <T> ::Node();
+   numElements = 0;
+
+   if (first)
+   {
+      pHead = new Node(*first);
+      Node* pNew = pHead;
+      Node* pPrevious = pHead;
+      ++numElements;
+      ++first;
+
+      for (auto it = first; it != last; ++it)
+      {
+         pNew = new Node(*it);
+         pPrevious->pNext = pNew;
+         pNew->pPrev = pPrevious;
+         pPrevious = pNew;
+         ++numElements;
+      }
+
+      pTail = pNew;
+   }
 }
 
 /*****************************************

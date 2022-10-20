@@ -165,8 +165,7 @@ public:
    }
    iterator(Node * p) 
    {
-      /*this->p = p;*/
-       p = pNode;
+       this->p = p;
    }
 
    iterator(const iterator  & rhs) 
@@ -258,8 +257,15 @@ private:
 template <typename T>
 list <T> ::list(size_t num, const T & t) 
 {
-   numElements = 99;
-   pHead = pTail = new list <T> ::Node();
+   numElements = num;
+   if (num)
+   {
+       pHead = new Node(t);
+       Node* pPrevious = pHead;
+       Node* pNew = pHead;
+       pHead->pPrev = NULL;
+       for(i=1;)
+   }
 }
 
 /*****************************************
@@ -270,7 +276,7 @@ template <typename T>
 template <class Iterator>
 list <T> ::list(Iterator first, Iterator last)
 {
-   numElements = 99;
+   numElements = ;
    pHead = pTail = new list <T> ::Node();
 }
 
@@ -400,6 +406,42 @@ list <T> & list <T> :: operator = (list <T> & rhs)
 template <typename T>
 list <T>& list <T> :: operator = (const std::initializer_list<T>& rhs)
 {
+    auto itRHS = rhs.begin();
+    iterator itLHS = begin();
+    while (itRHS != rhs.end() && itLHS != end())
+    {
+        *itLHS = *itRHS;
+        ++itRHS;
+        ++itLHS;
+    }
+    if (itRHS != rhs.end())
+    {
+        while (itRHS != rhs.end())
+        {
+            push_back(*itRHS);
+            ++itRHS;
+        }
+    }
+    else if (rhs.size()==0)
+    {
+        clear();
+    }
+    else if (itLHS != end())
+    {
+        Node* p = itLHS.p;
+        pTail = p->pPrev;
+        Node* pNext = p->pNext;
+        while (p != NULL)
+        {
+            pNext = p->pNext;
+            delete p;
+            p = pNext;
+            --numElements;
+        }
+        pTail->pNext = NULL;
+
+    }
+   return *this;
    return *this;
 }
 

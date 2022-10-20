@@ -264,7 +264,7 @@ list <T> ::list(size_t num, const T & t)
        Node* pPrevious = pHead;
        Node* pNew = pHead;
        pHead->pPrev = nullptr;
-       for (i = 1; i < num)
+       for (size_t i = 1; i < num; i++)
        {
            pNew = new Node(t);
            pNew->pPrev = pPrevious;
@@ -317,8 +317,6 @@ list <T> ::list(const std::initializer_list<T>& il)
     pHead = NULL;
     pTail = NULL;
     numElements = 0;
-
-    this = rhs;
 }
 
 /*****************************************
@@ -352,7 +350,7 @@ list <T> ::list(list& rhs)
     pTail = NULL;
     numElements = 0;
 
-    for (it = rhs.begin(); rhs.end())
+    for (auto it = rhs.begin(); it != rhs.end(); ++it)
     {
         push_back(*it);
     }
@@ -368,7 +366,7 @@ list <T> ::list(list <T>&& rhs)
     this->pHead = nullptr;
     this->pTail = nullptr;
     this->numElements = 0;
-    swap(*this, rhs);
+    //swap(*this, rhs);
 }
 
 /**********************************************

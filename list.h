@@ -15,7 +15,7 @@
  *        List         : A class that represents a List
  *        ListIterator : An iterator through List
  * Author
- *    <Keaton Smith 4 hours, Philip Marvin 6 hours, Alex Jacob 6 hours>
+ *    <Keaton Smith 6 hours, Philip Marvin 6 hours, Alex Jacob 8 hours>
  ************************************************************************/
 
 #pragma once
@@ -271,6 +271,7 @@ list <T> ::list(size_t num, const T & t)
            pNew = new Node(t);
            pNew->pPrev = pPrevious;
            pNew->pPrev->pNext = pNew;
+           pPrevious = pNew;
        }
        pNew->pNext = nullptr;
        pTail = pNew;
@@ -326,7 +327,6 @@ list <T> ::list(const std::initializer_list<T>& il)
       pHead = new Node(*first);
       Node* pNew = pHead;
       Node* pPrevious = pHead;
-      ++numElements;
       ++first;
 
       for (auto it = first; it != il.end(); ++it)
@@ -335,7 +335,6 @@ list <T> ::list(const std::initializer_list<T>& il)
          pPrevious->pNext = pNew;
          pNew->pPrev = pPrevious;
          pPrevious = pNew;
-         ++numElements;
       }
 
       pTail = pNew;
@@ -363,6 +362,7 @@ list <T> ::list(size_t num)
             pNew = new Node();
             pNew->pPrev = pPrevious;
             pNew->pPrev->pNext = pNew;
+            pPrevious = pNew;
         }
         pNew->pNext = nullptr;
         pTail = pNew;
@@ -403,10 +403,13 @@ list <T> ::list(list& rhs)
 template <typename T>
 list <T> ::list(list <T>&& rhs)
 {
-    this->pHead = nullptr;
-    this->pTail = nullptr;
-    this->numElements = 0;
-    //swap(*this, rhs);
+   pHead = rhs.pHead;
+   pTail = rhs.pTail;
+   numElements = rhs.numElements;
+   
+   rhs.pHead = nullptr;
+   rhs.pTail = nullptr;
+   rhs.numElements = 0;
 }
 
 /**********************************************
@@ -670,7 +673,7 @@ T & list <T> :: front()
    }
    else
    {
-      throw std::runtime_error("ERROR: unable to access data from an empty list");
+      throw "ERROR: unable to access data from an empty list";
    }
 }
 
@@ -690,7 +693,7 @@ T & list <T> :: back()
    }
    else
    {
-      throw std::runtime_error("ERROR: unable to access data from an empty list");
+      throw "ERROR: unable to access data from an empty list";
    }
 }
 

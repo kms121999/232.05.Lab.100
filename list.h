@@ -44,9 +44,9 @@ public:
    // 
    // Construct
    //
-   Node() : pNext(nullptr), pPrev(nullptr), data() {};
-   Node(const T& data) : pNext(nullptr), pPrev(nullptr), data(data) {};
-   Node(T&& data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
+   //Node() : pNext(nullptr), pPrev(nullptr), data() {};
+   //Node(const T& data) : pNext(nullptr), pPrev(nullptr), data(data) {};
+   //Node(T&& data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
    list();
    list(list <T> & rhs);
    list(list <T>&& rhs);
@@ -118,7 +118,7 @@ public:
    //
 
    bool empty()  const { return pHead = NULL; }
-   size_t size() const { return numElements; }
+   size_t size() const { return numElements;  }
 
 
 private:
@@ -145,10 +145,21 @@ public:
    //
    // Construct
    //
-   Node()                : pNext(nullptr), pPrev(nullptr), data() {};
-   Node(const T &  data) : pNext(nullptr), pPrev(nullptr), data(data) {};
-   Node(      T && data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
-   list<int> l6{ 0, 2, 4, 6 };
+    Node()
+        Node() : pNext(nullptr), pPrev(nullptr), data() {};
+    {
+        Node(const T & data) : pNext(nullptr), pPrev(nullptr), data(data) {};
+        pNext = pPrev = this;
+        Node(T && data) : pNext(nullptr), pPrev(nullptr), data(std::move(data)) {};
+    }
+    Node(const T& data)
+    {
+        pNext = pPrev = this;
+    }
+    Node(T&& data)
+    {
+        pNext = pPrev = this;
+    }
 
    //
    // Data
@@ -178,8 +189,10 @@ public:
    }
    iterator(Node * p) 
    {
-      this->p = p;
+      /*this->p = p;*/
+       p = pNode;
    }
+
    iterator(const iterator  & rhs) 
    {
       this->p = rhs.p;
@@ -439,7 +452,7 @@ void list <T> :: clear()
 template <typename T>
 void list <T> :: push_back(const T & data)
 {
-
+    numElements += 1;
 }
 
 template <typename T>

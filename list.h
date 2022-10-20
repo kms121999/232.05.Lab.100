@@ -335,8 +335,8 @@ list <T> ::list(size_t num)
 template <typename T>
 list <T> ::list() 
 {
-    pHead = NULL;
-    pTail = NULL;
+    pHead = nullptr;
+    pTail = nullptr;
     numElements = 0;
 }
 
@@ -346,8 +346,8 @@ list <T> ::list()
 template <typename T>
 list <T> ::list(list& rhs) 
 {
-    pHead = NULL;
-    pTail = NULL;
+    pHead = nullptr;
+    pTail = nullptr;
     numElements = 0;
 
     for (auto it = rhs.begin(); it != rhs.end(); ++it)
@@ -426,7 +426,7 @@ list <T> & list <T> :: operator = (list <T> & rhs)
             p = pNext;
             --numElements;
         }
-        pTail->pNext = NULL;
+        pTail->pNext = nullptr;
 
     }
     return *this;
@@ -474,7 +474,7 @@ list <T>& list <T> :: operator = (const std::initializer_list<T>& rhs)
             p = pNext;
             --numElements;
         }
-        pTail->pNext = NULL;
+        pTail->pNext = nullptr;
 
     }
    return *this;
